@@ -17,7 +17,7 @@
   "homepage": "https://github.com/nathalies-prog/RegistryService#readme",
   "description": "",
   "dependencies": {
-    "node-etcd": "^7.0.0",
+    "etcd3": "^1.1.2",
     "typescript": "^5.8.2"
   }
 }

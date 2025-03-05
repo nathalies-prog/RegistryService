@@ -1,0 +1,26 @@
+{
+  "name": "accountservice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathalies-prog/AccountService.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nathalies-prog/AccountService/issues"
+  },
+  "homepage": "https://github.com/nathalies-prog/AccountService#readme",
+  "description": "",
+  "dependencies": {
+    "@hono/node-server": "^1.13.8",
+    "hono": "^4.7.2",
+    "pg": "^8.13.3",
+    "typescript": "^5.8.2"
+  }
+}

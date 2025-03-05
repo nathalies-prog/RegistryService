@@ -1,0 +1,14 @@
+services:
+  buecher:
+    image: postgres:16.2
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: buecher
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./pg-data:/var/lib/postgres/sql/data
+
+

@@ -1,0 +1,29 @@
+{
+  "name": "inventoryservice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathalies-prog/InventoryService.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nathalies-prog/InventoryService/issues"
+  },
+  "homepage": "https://github.com/nathalies-prog/InventoryService#readme",
+  "description": "",
+  "dependencies": {
+    "@faker-js/faker": "^9.5.1",
+    "@hono/node-server": "^1.13.8",
+    "pg": "^8.13.3",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.11"
+  }
+}

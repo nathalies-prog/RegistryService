@@ -9,12 +9,12 @@ import {
 
 const app = new Hono();
 const port = 3005;
-const etcd = new Etcd3({ hosts: "http://localhost:2379" });
+const etcd = new Etcd3({ hosts: "http://etcd:2379" });
 // Alle Services bei Etcd registrieren
 const registerAllServices = async () => {
-  await registerService("AccountService", "http://localhost:3000");
-  await registerService("InventoryService", "http://localhost:3001");
-  await registerService("LendingService", "http://localhost:3002");
+  await registerService("AccountService", "http://AccountService:3000");
+  await registerService("InventoryService", "http://InventoryService:3001");
+  await registerService("LendingService", "http://LendingService:3002");
 };
 
 registerAllServices();

@@ -6,11 +6,11 @@ export function getPool() {
     return pool;
   }
   pool = new pg.Pool({
-    port: 5434,
-    host: "localhost",
+    port: 5435,
+    host: "lendingdb",
     user: "admin",
     password: "secret",
-    database: "lending",
+    database: "postgres",
   });
 
   return pool;
@@ -21,11 +21,11 @@ export function getClient() {
     return client;
   }
   client = new pg.Client({
-    port: 5434,
-    host: "localhost",
+    port: 5435,
+    host: "lendingdb",
     user: "admin",
     password: "secret",
-    database: "lending",
+    database: "postgres",
   });
   return client;
 }

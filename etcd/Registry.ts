@@ -1,5 +1,4 @@
 import { serve } from "@hono/node-server";
-import { Etcd3 } from "etcd3";
 import { Hono } from "hono";
 import {
   deregisterService,
@@ -8,8 +7,8 @@ import {
 } from "./etcd-helper";
 
 const app = new Hono();
-const port = 3005;
-const etcd = new Etcd3({ hosts: "http://etcd:2379" });
+const port = 3003;
+
 // Alle Services bei Etcd registrieren
 const registerAllServices = async () => {
   await registerService("AccountService", "http://AccountService:3000");
@@ -25,9 +24,9 @@ app.post("/registration/:serviceName", async (c) => {
 
   try {
     await registerService(serviceName, url);
-    c.json(`Service ${serviceName} erfolgreich registriert.`, 201);
+    return c.json(`Service ${serviceName} erfolgreich registriert.`, 201);
   } catch (error) {
-    c.json({ error: `Fehler beim Registrieren des Service: ${error}` }, 500);
+    return c.json({ error: `Fehler beim Registrieren des Service: ${error}` }, 500);
   }
 });
 
@@ -38,12 +37,12 @@ app.get("/registration/:serviceName", async (c) => {
   try {
     const serviceUrl = await getServiceUrl(serviceName);
     if (serviceUrl) {
-      c.json({ serviceName, url: serviceUrl });
+      return c.json({ serviceName, url: serviceUrl });
     } else {
-      c.json(`Service ${serviceName} nicht gefunden.`, 404);
+      return c.json(`Service ${serviceName} nicht gefunden.`, 404);
     }
   } catch (error) {
-    c.json(`Fehler beim Abrufen des Service: ${error}`, 500);
+    return c.json(`Fehler beim Abrufen des Service: ${error}`, 500);
   }
 });
 
@@ -53,12 +52,12 @@ app.delete("/registration/:serviceName", async (c) => {
 
   try {
     await deregisterService(serviceName);
-    c.json(`Service ${serviceName} erfolgreich gelöscht.`);
+    return c.json(`Service ${serviceName} erfolgreich gelöscht.`);
   } catch (error) {
-    c.json(`Fehler beim Löschen des Service: ${error}`, 500);
+   return c.json(`Fehler beim Löschen des Service: ${error}`, 500);
   }
 });
 
-serve({ fetch: app.fetch, port: 3005 }, (info) => {
+serve({ fetch: app.fetch, port: port }, (info) => {
   console.log(`Server is running on http://localhost:${info.port}`);
 });

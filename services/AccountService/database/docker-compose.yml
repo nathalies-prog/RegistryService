@@ -1,15 +1,29 @@
 services:
-  database:
-    image: postgres:16.2
+  account-service:
+    build:
+      context: ../
+    container_name: AccountService
     ports:
-      - 5432:5432
+      - "3000:3000"
+    networks:
+      - shared-network
+    depends_on:
+      - accountdb
+
+  accountdb:
+    image: postgres:latest
+    container_name: AccountDB
     environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: secret
+    ports:
+      - 5433:5432
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./pg-data:/var/lib/postgres/sql/data
+    networks:
+      - shared-network
   pgadmin:
     image: dpage/pgadmin4:8.3
     ports:
@@ -17,9 +31,12 @@ services:
     volumes:
       - ./pg-admin-data:/var/lib/pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: beispiel@beispiel.de 
+      PGADMIN_DEFAULT_EMAIL: beispiel@beispiel.de
       PGADMIN_DEFAULT_PASSWORD: beispiel123
     depends_on:
-      - database
+      - accountdb
+networks:
+  shared-network:
+    external: true
 
-
+ 

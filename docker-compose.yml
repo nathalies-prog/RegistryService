@@ -10,35 +10,27 @@ services:
       - ALLOW_NONE_AUTHENTICATION=yes
     volumes:
       - etcd-data:/etcd-data
+    healthcheck:
+      test: ["CMD", "etcdctl", "endpoint", "health"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
   registry-service:
     build:
       context: .
     environment:
       - ETCD_HOST=http://etcd:2379
     container_name: RegistryService
-    depends_on:
-      etcd:
-        condition: service_healthy
-  account-service:
-    build:
-      context: ./services/AccountService
-    container_name: AccountService
+    ports:
+      - 3003:3003
     depends_on:
       - etcd
+    networks:
+      - shared-network
 
-  inventory-service:
-    build:
-      context: ./services/InventoryService
-    container_name: InventoryService
-    depends_on:
-      - etcd
-
-  lending-service:
-    build:
-      context: ./services/LendingService
-    container_name: LendingService
-    depends_on:
-      - etcd
-
+networks:
+  shared-network:
+    external: true
 volumes:
-  etcd-data:
+  etcd-data: {}

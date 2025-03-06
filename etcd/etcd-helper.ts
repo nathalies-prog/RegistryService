@@ -1,7 +1,8 @@
 import{ Etcd3 } from 'etcd3';
 
 // Etcd-Client initialisieren
-const etcd = new Etcd3();
+const etcd = new Etcd3({ hosts: 'http://localhost:2379' });
+
 
 // Registriere einen Service in Etcd
 export const registerService = async (serviceName : string, url : string) => {

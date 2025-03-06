@@ -5,10 +5,10 @@ export function getPool() {
     return pool;
   }
   pool = new pg.Pool({
-    port:5432,
-    host: "localhost",
-    user: "admin",
-    password: "secret",
+    port:5433,
+    host: 'localhost',
+    user: "user",
+    password: "password",
     database: "postgres",
   });
 

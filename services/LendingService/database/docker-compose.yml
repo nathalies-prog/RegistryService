@@ -1,12 +1,27 @@
 services:
-  lending:
+  lendingdb:
     image: postgres:16.2
     ports:
-      - 5434:5432
+      - 5435:5432
     environment:
-      POSTGRES_DB: lending
+      POSTGRES_DB: postgres
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secret
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./pg-data:/var/lib/postgres/sql/data
+    networks:
+      - shared-network
+  lending-service:
+    build:
+      context: ../
+    container_name: LendingService
+    ports:
+      - 3002:3002
+    depends_on:
+      - lendingdb
+    networks:
+      - shared-network
+networks:
+  shared-network:
+    external: true

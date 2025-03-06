@@ -7,10 +7,10 @@ export function getPool() {
   }
   pool = new pg.Pool({
     port: 5433,
-    host: "localhost",
+    host: "inventorydb",
     user: "admin",
     password: "secret",
-    database: "buecher",
+    database: "postgres",
   });
 
   return pool;
@@ -22,10 +22,10 @@ export function getClient() {
   }
   client = new pg.Client({
     port: 5433,
-    host: "localhost",
+    host: "inventorydb",
     user: "admin",
     password: "secret",
-    database: "buecher",
+    database: "postgres",
   });
   return client;
 }

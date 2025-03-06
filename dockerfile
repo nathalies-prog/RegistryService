@@ -10,7 +10,7 @@ COPY ./etcd /app/etcd
 
 RUN npx tsc 
 
-COPY dist /app/dist
+
 
 FROM node:20-alpine
 

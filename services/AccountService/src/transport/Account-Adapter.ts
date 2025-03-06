@@ -3,13 +3,12 @@ import { Hono } from "hono";
 import { StorageRepository } from "../repositories/Storage-Repository";
 import { DataSource } from "../datasources/DataSource";
 import { AccountInteractor } from "../interactors/Account-Interactor";
-import { registerService } from "../../../../etcd/etcd-helper";
 const accountAdapter = new Hono();
 const storageRepository: StorageRepository = new DataSource();
 const accountInteractor = new AccountInteractor(storageRepository);
 const PORT = 3000;
 // REGISTRIEREN
-registerService("AccountService", `http://localhost:${PORT}`);
+
 
 accountAdapter.post("/create", async (c) => {
   const { firstName, lastName } = await c.req.json();

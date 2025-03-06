@@ -3,10 +3,10 @@ import { BookStorageRepository } from "../repositories/BookStorage-Repository";
 import { BookSource } from "../datasources/BookSource";
 import { BookInteractor } from "../interactors/Book-Interactor";
 import { serve } from "@hono/node-server";
-
 const bookAdapter = new Hono();
 const storageRepository: BookStorageRepository = new BookSource();
 const bookInteractor = new BookInteractor(storageRepository);
+const PORT = 3001;
 
 bookAdapter.get("/book/:isbn", async (c) => {
   const { isbn } = c.req.param();

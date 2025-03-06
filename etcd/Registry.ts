@@ -1,4 +1,4 @@
-import { serve } from "@hono/node-server/.";
+import { serve } from "@hono/node-server";
 import { Etcd3 } from "etcd3";
 import { Hono } from "hono";
 import {
@@ -10,7 +10,14 @@ import {
 const app = new Hono();
 const port = 3005;
 const etcd = new Etcd3({ hosts: "http://localhost:2379" });
+// Alle Services bei Etcd registrieren
+const registerAllServices = async () => {
+  await registerService("AccountService", "http://localhost:3000");
+  await registerService("InventoryService", "http://localhost:3001");
+  await registerService("LendingService", "http://localhost:3002");
+};
 
+registerAllServices();
 // Registrierung eines neuen Services
 app.post("/registration/:serviceName", async (c) => {
   const { serviceName } = c.req.param();

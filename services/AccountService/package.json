@@ -1,6 +1,5 @@
 {
   "name": "accountservice",
-  "type": "module",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -23,5 +22,8 @@
     "hono": "^4.7.2",
     "pg": "^8.13.3",
     "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.11"
   }
 }

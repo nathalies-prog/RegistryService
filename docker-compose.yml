@@ -1,0 +1,43 @@
+services:
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.1
+    container_name: etcd
+    ports:
+      - 2379:2379
+    environment:
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://localhost:2379
+    volumes:
+      - etcd-data:/etcd-data
+  registry-service:
+    build:
+      context: .
+    environment:
+      - ETCD_HOST=http://etcd:2379
+    container_name: RegistryService
+    depends_on:
+      - etcd
+  account-service:
+    build:
+      context: ./services/AccountService
+    container_name: AccountService
+    depends_on:
+      - etcd
+
+  inventory-service:
+    build:
+      context: ./services/InventoryService
+    container_name: InventoryService
+    depends_on:
+      - etcd
+
+  lending-service:
+    build:
+      context: ./services/LendingService
+    container_name: LendingService
+    depends_on:
+      - etcd
+
+volumes:
+  etcd-data:

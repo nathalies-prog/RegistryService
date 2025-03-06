@@ -3,12 +3,14 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
-
 RUN npm install
 
-COPY . .
+COPY tsconfig.json /app/
+COPY ./etcd /app/etcd
 
 RUN npx tsc 
+
+COPY dist /app/dist
 
 FROM node:20-alpine
 
@@ -18,4 +20,4 @@ COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/package.json /app/package.json
 COPY --from=builder /app/node_modules /app/node_modules
 
-CMD ["node", "./dist/transport/Lending-Adapter.js"]
+CMD ["node", "./dist/Registry.js"]
